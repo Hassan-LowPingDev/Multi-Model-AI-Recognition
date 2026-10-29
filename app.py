@@ -174,6 +174,30 @@ st.markdown("""
     [data-testid="stMetricValue"], [data-testid="stMetricValue"] div {color: #f5f8ff !important;}
     [data-testid="stCaptionContainer"], [data-testid="stCaptionContainer"] p {color: #aebed2 !important;}
     label, label p, [data-testid="stMarkdownContainer"] p, [data-testid="stMarkdownContainer"] li {color: #e0e8f3;}
+    [data-testid="stFileUploaderDropzone"] {
+        background: #152338 !important;
+        border: 1px dashed #52708f !important;
+        border-radius: 14px !important;
+    }
+    [data-testid="stFileUploaderDropzoneInstructions"],
+    [data-testid="stFileUploaderDropzoneInstructions"] span,
+    [data-testid="stFileUploader"] small {color: #bdcadd !important;}
+    [data-testid="stFileUploaderDropzone"] button {
+        background: #4fd1b5 !important;
+        color: #08131f !important;
+        border: 1px solid #4fd1b5 !important;
+        font-weight: 700 !important;
+    }
+    [data-testid="stFileUploaderDropzone"] button:hover {
+        background: #7ce9d4 !important;
+        border-color: #7ce9d4 !important;
+    }
+    [data-testid="stFileUploaderDropzone"] button:focus-visible {
+        outline: 3px solid #e7fff9 !important;
+        outline-offset: 2px !important;
+    }
+    [data-testid="stFileUploaderDropzone"] button span,
+    [data-testid="stFileUploaderDropzone"] button svg {color: #08131f !important; fill: #08131f !important;}
     [data-testid="stProgressBar"] {background: #26374d;}
     [data-testid="stProgressBar"] > div {background: #4fd1b5;}
     @keyframes reveal-result {
