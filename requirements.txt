@@ -1,0 +1,16 @@
+streamlit
+torch
+torchvision
+numpy
+pandas
+scikit-learn
+
+# image recognuition
+pillow
+
+# sound recognition
+librosa
+soundfile
+
+# pose recognition
+opencv-python

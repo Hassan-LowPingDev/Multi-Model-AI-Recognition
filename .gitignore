@@ -1,0 +1,24 @@
+# Python environments and generated files
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+**/tempCodeRunnerFile.py
+anaconda_projects/
+
+# Trained model weights
+*.pth
+*.pt
+*.ckpt
+
+# Local datasets and extracted features
+/data/
+/SoundRecognition/ESC-50/audio/
+/PoseRecognition/dataSetFolder/
+/PoseRecognition/dataset/
+/PoseRecognition/pose_dataset.csv
+
+# Local editor and OS files
+.DS_Store
+Thumbs.db
