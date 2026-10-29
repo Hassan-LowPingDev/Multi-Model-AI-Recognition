@@ -7,13 +7,17 @@ __pycache__/
 **/tempCodeRunnerFile.py
 anaconda_projects/
 
-# Trained model weights
+# Keep the three deployed model weights; ignore other checkpoints.
 *.pth
+!Image_recognition/image_recognition_model.pth
+!SoundRecognition/sound_model.pth
+!PoseRecognition/pose_model.pth
 *.pt
 *.ckpt
 
 # Local datasets and extracted features
 /data/
+/Image_recognition/test_images/
 /SoundRecognition/ESC-50/audio/
 /PoseRecognition/dataSetFolder/
 /PoseRecognition/dataset/
