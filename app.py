@@ -280,13 +280,15 @@ elif selected_model == "Sound Recognition":
         st.error("Sound model not found. Add SoundRecognition/sound_model.pth.")
         st.stop()
     model, settings = load_sound_model()
-    tabs = st.tabs(["Held-out test sounds", "Upload a sound"])
+    tabs = st.tabs(["Sample sounds", "Upload a sound"])
     with tabs[0]:
         if not audio_dir.exists() or not csv_path.exists():
             st.info("ESC-50 audio or metadata is unavailable. Upload a sound in the next tab.")
         else:
             metadata = pd.read_csv(csv_path)
             metadata = metadata[(metadata["category"].isin(settings["classes"])) & (metadata["fold"] == 5)]
+            available_audio = {path.name for path in audio_dir.glob("*.wav")}
+            metadata = metadata[metadata["filename"].isin(available_audio)]
             if metadata.empty:
                 st.info("No held-out test sounds were found for these classes.")
             else:
@@ -301,7 +303,7 @@ elif selected_model == "Sound Recognition":
                 selected = st.selectbox(
                     "2 · Choose a sound clip",
                     visible["filename"].tolist(),
-                    help="Select a clip to listen to it and view the model prediction.",
+                    help="Select one of the bundled clips to listen and see its prediction.",
                 )
                 row = metadata.loc[metadata["filename"] == selected].iloc[0]
                 audio_bytes = (audio_dir / selected).read_bytes()
@@ -310,10 +312,10 @@ elif selected_model == "Sound Recognition":
                 with left:
                     st.markdown("#### Listen to the clip")
                     st.audio(audio_bytes, format="audio/wav")
-                    st.caption(f"{selected} · ESC-50 held-out fold {int(row['fold'])}")
-                    with st.expander("Evaluate all held-out test sounds"):
-                        st.caption("Uses fold 5, reserved as the test split by train.py.")
-                        run_sound_evaluation = st.button("Run sound test evaluation", type="primary")
+                    st.caption(f"{selected} · ESC-50 fold {int(row['fold'])} sample")
+                    with st.expander("Evaluate the included sample sounds"):
+                        st.caption(f"Evaluates the {len(metadata)} bundled examples from fold 5.")
+                        run_sound_evaluation = st.button("Evaluate sample sounds", type="primary")
                 with right:
                     prediction, scores = sound_prediction(audio_bytes, model, settings)
                     st.metric("Predicted sound", prediction.replace("_", " ").title())
@@ -339,7 +341,7 @@ elif selected_model == "Sound Recognition":
                         })
                         progress.progress(index / len(metadata), text=f"Analyzed {index} of {len(metadata)} clips")
                     accuracy = sum(result["Correct"] for result in results) / len(results)
-                    st.metric("Held-out accuracy", f"{accuracy:.1%}",
+                    st.metric("Sample accuracy", f"{accuracy:.1%}",
                               help=f"{sum(result['Correct'] for result in results)} of {len(results)} correct")
                     st.dataframe(pd.DataFrame(results), use_container_width=True, hide_index=True)
     with tabs[1]:
